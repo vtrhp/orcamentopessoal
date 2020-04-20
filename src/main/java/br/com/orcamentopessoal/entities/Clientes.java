@@ -1,6 +1,5 @@
 package br.com.orcamentopessoal.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,21 +15,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "clientes")
-public class Clientes implements Serializable{
-
-	private static final long serialVersionUID = -3163114924504227247L;
+public class Clientes {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idClientes;	
+	private Long idClientes;
 	private String nome;
 	private String sobrenome;
 	private String cpf;
 	private LocalDate dataNascimento;
 	private String sexo;
+	private LocalDate dtCadastro;
+	private String email;
+	private String celular;
 
 	@OneToMany(mappedBy = "clientes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Receitas> receitas;
+
+	@OneToMany(mappedBy = "clientes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Investimentos> investimentos;
 
 	public List<Receitas> getReceitas() {
 		return receitas;
@@ -92,5 +95,40 @@ public class Clientes implements Serializable{
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+
+	@Column(name = "dt_cadastro")
+	public LocalDate getDtCadastro() {
+		return dtCadastro;
+	}
+
+	public void setDtCadastro(LocalDate dtCadastro) {
+		this.dtCadastro = dtCadastro;
+	}
+
+	@Column(name = "email")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Column(name = "celular")
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public List<Investimentos> getInvestimentos() {
+		return investimentos;
+	}
+
+	public void setInvestimentos(List<Investimentos> investimentos) {
+		this.investimentos = investimentos;
 	}
 }
